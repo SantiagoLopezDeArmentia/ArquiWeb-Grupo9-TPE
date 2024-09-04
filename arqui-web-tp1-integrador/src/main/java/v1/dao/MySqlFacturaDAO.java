@@ -6,14 +6,14 @@ import java.sql.ResultSet;
 
 public class MySqlFacturaDAO implements Factura {
     private Connection connection;
-    private MySqlFacturaDAO instance;
+    private static MySqlFacturaDAO instance;
 
     private MySqlFacturaDAO(Connection connection) {
         this.connection = connection;
         this.instance = this;
     }
 
-    public Factura getInstance(Connection connection) {
+    public static Factura getInstance(Connection connection) {
         if (instance == null) {
             instance = new MySqlFacturaDAO(connection);
         }

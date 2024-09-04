@@ -6,14 +6,14 @@ import java.sql.ResultSet;
 
 public class MySqlClienteDAO implements Cliente{
     private Connection connection;
-    private Cliente instance;
+    private static Cliente instance;
 
     private MySqlClienteDAO(Connection connection) {
         this.connection = connection;
         this.instance = this;
     }
 
-    public Cliente getInstance(Connection connection) {
+    public static Cliente getInstance(Connection connection) {
         if (instance == null) {
             instance = new MySqlClienteDAO(connection);
         }
