@@ -25,10 +25,10 @@ public class MySqlClienteDAO implements Cliente{
     public boolean createTable() throws Exception {
         try {
             String sql = "CREATE TABLE IF NOT EXISTS cliente (" +
-                    "id INT NOT NULL AUTO_INCREMENT," +
+                    "idCliente INT NOT NULL AUTO_INCREMENT," +
                     "nombre VARCHAR(500)," +
                     "email VARCHAR(150)," +
-                    "PRIMARY KEY (id))";
+                    "PRIMARY KEY (idCliente))";
             this.connection.prepareStatement(sql).execute();
             this.connection.commit();
             return true;

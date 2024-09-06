@@ -37,27 +37,12 @@ public class MySqlFacturaDAO implements Factura {
     }
 
     @Override
-    public boolean relacionarTabla(String tableName, String ownerField, String otherField, String nombreRelacion) throws Exception {
+    public boolean insert(int idFactura, int idCliente) throws Exception {
         try {
-            String sql = "ALTER TABLE factura" +
-                    " ADD CONSTRAINT " + nombreRelacion +
-                    " FOREIGN KEY " + ownerField +
-                    " REFERENCES " +  tableName + "("+otherField+")";
-            this.connection.prepareStatement(sql).execute();
-            this.connection.commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public boolean insert(int idCliente) throws Exception {
-        try {
-            String sql = "INSERT INTO factura (idCliente) VALUES (?)";
+            String sql = "INSERT INTO factura (idFactura, idCliente) VALUES (?, ?)";
             PreparedStatement ps = this.connection.prepareStatement(sql);
-            ps.setInt(1, idCliente);
+            ps.setInt(1, idFactura);
+            ps.setInt(2, idCliente);
             ps.executeUpdate();
             ps.close();
             this.connection.commit();

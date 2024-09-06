@@ -76,4 +76,20 @@ public class MySqlFactory extends FactoryDAO{
         }
     }
 
+
+    public boolean relacionarTablaUnoMuchos(String fromTableName, String fromTableField, String toTableName,String toTableField, String nombreRelacion) throws Exception {
+        try {
+            String sql = "ALTER TABLE " + fromTableName  +
+                    " ADD CONSTRAINT " + nombreRelacion +
+                    " FOREIGN KEY (" + fromTableField +")"+
+                    " REFERENCES " +  toTableName + "("+ toTableField +");";
+            this.connection.prepareStatement(sql).execute();
+            this.connection.commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
