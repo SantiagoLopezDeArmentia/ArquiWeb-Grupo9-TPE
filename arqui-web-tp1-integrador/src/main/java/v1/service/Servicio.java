@@ -89,7 +89,6 @@ public class Servicio {
                     " LIMIT 1";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            //ps.close();
             connection.commit();
             return rs;
 
@@ -98,6 +97,24 @@ public class Servicio {
             return null;
         }
     }
+
+    public ResultSet servicio4(Connection connection) {
+        try {
+            String sql = "SELECT c.*, COUNT(f.idFactura) as \"total\" FROM cliente c" +
+                    " JOIN factura f ON f.idCliente = c.idCliente" +
+                    " GROUP BY f.idCliente" +
+                    " ORDER BY total desc";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            connection.commit();
+            return rs;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 
 }

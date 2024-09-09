@@ -64,6 +64,13 @@ public class Main {
                     " costo: " + rs_serv3.getFloat("valor"));
             }
 
+            ResultSet rs_serv4 = servicio.servicio4(mysql.getConnection());
+            while (rs_serv4.next()) {
+                System.out.println("Cliente: [ idCliente: " + rs_serv3.getInt("idCliente") +
+                        " Nombre: " + rs_serv3.getString("nombre") +
+                        " email: " + rs_serv3.getString("email") + " ] ");
+            }
+
         }catch (Exception e) {
             e.printStackTrace();
             mysql.closeConnection();
