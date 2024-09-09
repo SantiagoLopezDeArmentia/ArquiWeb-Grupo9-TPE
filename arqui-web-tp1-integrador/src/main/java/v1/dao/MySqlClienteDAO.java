@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class MySqlClienteDAO implements Cliente{
+public class MySqlClienteDAO implements Cliente {
     private Connection connection;
     private static Cliente instance;
 
     private MySqlClienteDAO(Connection connection) {
         this.connection = connection;
-        this.instance = this;
+        instance = this;
     }
 
     public static Cliente getInstance(Connection connection) {
@@ -19,7 +19,6 @@ public class MySqlClienteDAO implements Cliente{
         }
         return instance;
     }
-
 
     @Override
     public boolean createTable() throws Exception {

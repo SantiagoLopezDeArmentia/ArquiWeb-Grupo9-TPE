@@ -10,7 +10,7 @@ public class MySqlFacturaDAO implements Factura {
 
     private MySqlFacturaDAO(Connection connection) {
         this.connection = connection;
-        this.instance = this;
+        instance = this;
     }
 
     public static Factura getInstance(Connection connection) {

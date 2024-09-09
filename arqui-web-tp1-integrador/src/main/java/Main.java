@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.ResultSet;
 
-
 public class Main {
     public static void main(String[] args) {
 
@@ -39,12 +38,14 @@ public class Main {
             System.out.println("Tabla de Productos Creada.");
             facturaProducto.createTable();
 
-
             System.out.println("3. #### GENERAR RELACIONES");
             if (generateRelations) {
-                mysql.relacionarTablaUnoMuchos("factura", "idCliente", "cliente", "idCliente", "RELACION_CLIENTE_FACTURA");
-                mysql.relacionarTablaUnoMuchos("factura_producto", "idFactura", "factura", "idFactura", "RELACION_FACTURAPRODUCTO_FACTURA");
-                mysql.relacionarTablaUnoMuchos("factura_producto", "idProducto", "producto", "idProducto", "RELACION_FACTURAPRODUCTO_PRODUCTO");
+                mysql.relacionarTablaUnoMuchos("factura", "idCliente", "cliente", "idCliente",
+                        "RELACION_CLIENTE_FACTURA");
+                mysql.relacionarTablaUnoMuchos("factura_producto", "idFactura", "factura", "idFactura",
+                        "RELACION_FACTURAPRODUCTO_FACTURA");
+                mysql.relacionarTablaUnoMuchos("factura_producto", "idProducto", "producto", "idProducto",
+                        "RELACION_FACTURAPRODUCTO_PRODUCTO");
             }
             System.out.println("4. ##### GENERAR INSERTAR DATOS");
 
@@ -54,24 +55,31 @@ public class Main {
                 servicio.insertarCliente(cliente, Paths.get(ROOT_PROJECT, NB_FILE_CLIENTES).toString());
                 servicio.insertarFactura(factura, Paths.get(ROOT_PROJECT, NB_FILE_FACTURAS).toString());
                 servicio.insertarProducto(producto, Paths.get(ROOT_PROJECT, NB_FILE_PRODUCTOS).toString());
-                servicio.insertarFacturaProducto(facturaProducto, Paths.get(ROOT_PROJECT, NB_FILE_FACTURAS_PRODUCTOS).toString());
+                servicio.insertarFacturaProducto(facturaProducto,
+                        Paths.get(ROOT_PROJECT, NB_FILE_FACTURAS_PRODUCTOS).toString());
             }
 
             ResultSet rs_serv3 = servicio.servicio3(mysql.getConnection());
             while (rs_serv3.next()) {
                 System.out.println("id: " + rs_serv3.getInt("idProducto") +
-                    " nombre: " + rs_serv3.getString("nombre") +
-                    " costo: " + rs_serv3.getFloat("valor"));
+                        " nombre: " + rs_serv3.getString("nombre") +
+                        " costo: " + rs_serv3.getFloat("valor"));
             }
 
             ResultSet rs_serv4 = servicio.servicio4(mysql.getConnection());
             while (rs_serv4.next()) {
-                System.out.println("Cliente: [ idCliente: " + rs_serv3.getInt("idCliente") +
-                        " Nombre: " + rs_serv3.getString("nombre") +
-                        " email: " + rs_serv3.getString("email") + " ] ");
+                System.out.println("Cliente: [ idCliente: " + rs_serv4.getInt("idCliente") +
+                        " Nombre: " + rs_serv4.getString("nombre") +
+                        " email: " + rs_serv4.getString("email") + " ] ");
             }
 
-        }catch (Exception e) {
+            ResultSet resultado = producto.selectAll();
+            while (resultado.next()) {
+                System.out.println("id: " + resultado.getInt("idProducto") + " nombre " + resultado.getString("nombre")
+                        + " cantidad " + resultado.getFloat("valor"));
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
             mysql.closeConnection();
             System.exit(1);
