@@ -82,12 +82,9 @@ public class Servicio {
 
     public ResultSet servicio3(Connection connection) {
         try {
-            /*String sql = "SELECT p.*, p.valor * fp.cantidad as \"cantidad\" FROM producto p" +
+            String sql = "SELECT p.*, SUM(p.valor * fp.cantidad) as \"cantidad\" FROM producto p" +
                     " JOIN factura_producto fp ON p.idProducto = fp.idProducto" +
-                    " ORDER BY cantidad desc" +
-                    " LIMIT 1";*/
-            String sql = "SELECT count(fp.cantidad) FROM factura_producto fp" +
-                    " JOIN producto p ON fp.idProducto = p.idProducto" +
+                    " GROUP BY fp.idProducto" +
                     " ORDER BY cantidad desc" +
                     " LIMIT 1";
             PreparedStatement ps = connection.prepareStatement(sql);
