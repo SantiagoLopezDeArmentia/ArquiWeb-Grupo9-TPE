@@ -25,15 +25,18 @@ public class MySqlFactory extends FactoryDAO{
         return instance;
     }
 
-    private void getConnection() {
+    public Connection getConnection() {
         try {
-            Class.forName(DRIVER).getDeclaredConstructor();
-            this.connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            this.connection.createStatement();
-            this.connection.setAutoCommit(false);
+            if (connection == null) {
+                Class.forName(DRIVER).getDeclaredConstructor();
+                this.connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                this.connection.createStatement();
+                this.connection.setAutoCommit(false);
+            }
+            return this.connection;
         } catch (Exception e) {
             e.printStackTrace();
-            System.exit(1);
+            return null;
         }
     }
 
