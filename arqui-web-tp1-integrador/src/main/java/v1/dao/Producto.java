@@ -6,5 +6,7 @@ public interface Producto {
     public boolean createTable() throws Exception;
     public boolean insert(String nombre, Float valor) throws Exception;
     public ResultSet selectAll();
+    public ResultSet servicio3();
+
 
 }

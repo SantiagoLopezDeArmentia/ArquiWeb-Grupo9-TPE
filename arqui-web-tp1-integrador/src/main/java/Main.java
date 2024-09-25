@@ -19,9 +19,9 @@ public class Main {
         final String NB_FILE_PRODUCTOS = "arquiweb_productos.csv";
         final String NB_FILE_FACTURAS_PRODUCTOS = "arquiweb_facturas-productos.csv";
         /* Se utiliza para manejar la creacion de las relaciones entre las tablas */
-        boolean generateRelations = false;
+        boolean generateRelations = true;
         /* Se utiliza para manejar la carga de datos a la base de datos */
-        boolean loadData = false;
+        boolean loadData = true;
 
         MySqlFactory mysql = MySqlFactory.getInstance();
 
@@ -83,7 +83,9 @@ public class Main {
              *   Ejecucion del servicio 3 y muestra de resultados.
              * */
 
-            ResultSet rs_serv3 = servicio.servicio3(mysql.getConnection());
+            //ResultSet rs_serv3 = servicio.servicio3(mysql.getConnection());
+            ResultSet rs_serv3 = producto.servicio3();
+
             while (rs_serv3.next()) {
                 System.out.println("id: " + rs_serv3.getInt("idProducto") +
                         " nombre: " + rs_serv3.getString("nombre") +
@@ -93,18 +95,18 @@ public class Main {
             /* Servicio 4
             *   Ejecucion del servicio 4 y muestra de resultados.
             * */
-            ResultSet rs_serv4 = servicio.servicio4(mysql.getConnection());
+            ResultSet rs_serv4 = cliente.servicio4();
             while (rs_serv4.next()) {
                 System.out.println("Cliente: [ idCliente: " + rs_serv4.getInt("idCliente") +
                         " Nombre: " + rs_serv4.getString("nombre") +
                         " email: " + rs_serv4.getString("email") + " ] ");
             }
 
-            ResultSet resultado = producto.selectAll();
+            /*ResultSet resultado = producto.selectAll();
             while (resultado.next()) {
                 System.out.println("id: " + resultado.getInt("idProducto") + " nombre " + resultado.getString("nombre")
                         + " cantidad " + resultado.getFloat("valor"));
-            }
+            }*/
 
         } catch (Exception e) {
             e.printStackTrace();

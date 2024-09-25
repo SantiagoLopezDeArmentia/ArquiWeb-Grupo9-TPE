@@ -36,6 +36,7 @@ public class MySqlProductoDAO implements  Producto{
         }
     }
 
+    @Override
     public boolean insert(String nombre, Float valor) throws Exception {
         try {
             String sql = "INSERT INTO producto (nombre, valor) VALUES (?,?)";
@@ -52,13 +53,32 @@ public class MySqlProductoDAO implements  Producto{
         }
     }
 
+    @Override
     public ResultSet selectAll() {
         try {
             String sql = "SELECT * FROM producto";
             PreparedStatement ps = this.connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            ps.close();
+            //ps.close();
             return rs;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public ResultSet servicio3() {
+        try {
+            String sql = "SELECT p.*, SUM(p.valor * fp.cantidad) as \"cantidad\" FROM producto p" +
+                    " JOIN factura_producto fp ON p.idProducto = fp.idProducto" +
+                    " GROUP BY fp.idProducto" +
+                    " ORDER BY cantidad desc" +
+                    " LIMIT 1";
+            PreparedStatement ps = this.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            this.connection.commit();
+            return rs;
+
         } catch (Exception e) {
             e.printStackTrace();
             return null;

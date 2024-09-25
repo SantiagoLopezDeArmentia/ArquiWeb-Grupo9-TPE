@@ -67,4 +67,21 @@ public class MySqlClienteDAO implements Cliente {
             return null;
         }
     }
+
+    public ResultSet servicio4() {
+        try {
+            String sql = "SELECT c.*, COUNT(f.idFactura) as \"total\" FROM cliente c" +
+                    " JOIN factura f ON f.idCliente = c.idCliente" +
+                    " GROUP BY f.idCliente" +
+                    " ORDER BY total desc";
+            PreparedStatement ps = this.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            this.connection.commit();
+            return rs;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

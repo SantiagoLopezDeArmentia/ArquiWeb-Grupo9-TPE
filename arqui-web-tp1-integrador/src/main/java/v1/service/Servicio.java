@@ -80,6 +80,7 @@ public class Servicio {
         }
     }
 
+    /*
     public ResultSet servicio3(Connection connection) {
         try {
             String sql = "SELECT p.*, SUM(p.valor * fp.cantidad) as \"cantidad\" FROM producto p" +
@@ -96,8 +97,9 @@ public class Servicio {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 
+    /*
     public ResultSet servicio4(Connection connection) {
         try {
             String sql = "SELECT c.*, COUNT(f.idFactura) as \"total\" FROM cliente c" +
@@ -113,7 +115,7 @@ public class Servicio {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 
 
 
